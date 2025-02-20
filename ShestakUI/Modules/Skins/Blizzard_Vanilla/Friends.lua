@@ -147,8 +147,10 @@ local function LoadSkin()
 		end
 	end
 	hooksecurefunc(FriendsFrameFriendsScrollFrame.invitePool, "Acquire", function()
-		for object in pairs(FriendsFrameFriendsScrollFrame.invitePool.activeObjects) do
-			SkinFriendRequest(object)
+		if FriendsFrameFriendsScrollFrame.invitePool.activeObjects then
+			for object in pairs(FriendsFrameFriendsScrollFrame.invitePool.activeObjects) do
+				SkinFriendRequest(object)
+			end
 		end
 	end)
 
@@ -260,9 +262,9 @@ local function LoadSkin()
 	--]]
 
 	T.SkinCloseButton(FriendsFrameCloseButton)
-	T.SkinDropDownBox(WhoFrameDropDown, 150)
-	T.SkinDropDownBox(FriendsFrameStatusDropDown, 70)
-	T.SkinDropDownBox(FriendsFriendsFrameDropDown)
+	T.SkinDropDownBox(WhoFrameDropdown, 150)
+	T.SkinDropDownBox(FriendsFrameStatusDropdown, 70)
+	T.SkinDropDownBox(FriendsFriendsFrameDropdown)
 
 	-- Bottom Tabs
 	FriendsFrameTab1:ClearAllPoints()

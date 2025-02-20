@@ -187,6 +187,17 @@ frame:SetScript("OnEvent", function(self, event)
 			MiniMapLFGBorder:Hide()
 		end
 	end
+	if LFGMinimapFrame then
+		LFGMinimapFrame:SetClampedToScreen(true)
+		LFGMinimapFrame:SetFrameStrata("TOOLTIP")
+		LFGMinimapFrame:ClearAllPoints()
+		LFGMinimapFrame:SetPoint("TOP", Minimap, "TOP", 1, 6)
+		LFGMinimapFrame:SetScale(0.8)
+		LFGMinimapFrame:SetHighlightTexture(0)
+		if LFGMinimapFrameBorder then
+			LFGMinimapFrameBorder:Hide()
+		end
+	end
 end)
 
 -- Adjusting for patch 9.0.1 Minimap.xml
@@ -225,7 +236,7 @@ else
 end
 
 -- Hide world map button
-if T.Classic then
+if T.Classic and MiniMapWorldMapButton then
 	MiniMapWorldMapButton:Hide()
 	MiniMapWorldMapButton.Show = T.dummy
 end
@@ -481,10 +492,20 @@ Minimap:SetScript("OnMouseUp", function(self, button)
 		end
 	elseif not T.Vanilla and button == "MiddleButton" then
 		if T.Classic then
-			if position:match("LEFT") then
-				ToggleDropDownMenu(nil, nil, MiniMapTrackingDropDown, "cursor", 0, 0, "MENU", 2)
+			if MiniMapTrackingDropDown then
+				if position:match("LEFT") then
+					ToggleDropDownMenu(nil, nil, MiniMapTrackingDropDown, "cursor", 0, 0, "MENU", 2)
+				else
+					ToggleDropDownMenu(nil, nil, MiniMapTrackingDropDown, "cursor", -160, 0, "MENU", 2)
+				end
 			else
-				ToggleDropDownMenu(nil, nil, MiniMapTrackingDropDown, "cursor", -160, 0, "MENU", 2)
+				MiniMapTrackingButton:OpenMenu()
+				MiniMapTrackingButton.menu:ClearAllPoints()
+				if position:match("LEFT") then
+					MiniMapTrackingButton.menu:SetPoint("TOPLEFT", Minimap, "RIGHT", 4, 0)
+				else
+					MiniMapTrackingButton.menu:SetPoint("TOPRIGHT", Minimap, "LEFT", -4, 0)
+				end
 			end
 		else
 			if position:match("LEFT") then
@@ -535,22 +556,26 @@ end
 
 if T.Vanilla then
 	if C.minimap.tracking_icon then
-		MiniMapTrackingFrame:ClearAllPoints()
-		MiniMapTrackingFrame:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", -1, -5)
-		MiniMapTrackingFrame.SetPoint = T.dummy
-		MiniMapTrackingBorder:Hide()
-		MiniMapTrackingFrame:SetFrameStrata("HIGH")
-		MiniMapTrackingIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		MiniMapTrackingIcon:SetSize(16, 16)
-		MiniMapTrackingIcon.SetPoint = T.dummy
+		if MiniMapTracking then
+			MiniMapTracking:ClearAllPoints()
+			MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", -4, 0)
+			MiniMapTracking.SetPoint = T.dummy
+			MiniMapTrackingBorder:Hide()
+			MiniMapTracking:SetFrameStrata("HIGH")
+			MiniMapTrackingIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			MiniMapTrackingIcon:SetSize(16, 16)
+			MiniMapTrackingIcon.SetPoint = T.dummy
 
-		MiniMapTrackingFrame:CreateBackdrop("ClassColor")
-		MiniMapTrackingFrame.backdrop:SetPoint("TOPLEFT", MiniMapTrackingIcon, -2, 2)
-		MiniMapTrackingFrame.backdrop:SetPoint("BOTTOMRIGHT", MiniMapTrackingIcon, 2, -2)
+			MiniMapTracking:CreateBackdrop("ClassColor")
+			MiniMapTracking.backdrop:SetPoint("TOPLEFT", MiniMapTrackingIcon, -2, 2)
+			MiniMapTracking.backdrop:SetPoint("BOTTOMRIGHT", MiniMapTrackingIcon, 2, -2)
+		end
 	else
-		MiniMapTrackingFrame:Hide()
-		MiniMapTrackingBorder:Hide()
-		MiniMapTrackingIcon:Hide()
+		if MiniMapTracking then
+			MiniMapTracking:Hide()
+			MiniMapTrackingBorder:Hide()
+			MiniMapTrackingIcon:Hide()
+		end
 	end
 elseif T.TBC or T.Wrath or T.Cata then
 	if C.minimap.tracking_icon then
@@ -559,6 +584,7 @@ elseif T.TBC or T.Wrath or T.Cata then
 		if T.Wrath or T.Cata then
 			MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", -1, -5)
 			MiniMapTrackingButtonBorder:Hide()
+			MiniMapTrackingButton:SetHighlightTexture(0)
 		else
 			MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", -4, 0)
 			MiniMapTrackingBorder:Hide()

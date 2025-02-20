@@ -94,11 +94,9 @@ local function LoadSkin()
 			tab.backdrop:SetAllPoints()
 			tab:StyleButton(true)
 
-			local point, relatedTo, point2 = tab:GetPoint()
-			if i == 1 then
-				tab:SetPoint(point, relatedTo, point2, -30, -64)
-			else
-				tab:SetPoint(point, relatedTo, point2, 0, -16)
+			if tab == SpellBookSkillLineTab1 then
+				local point, relatedTo, point2 = tab:GetPoint()
+				tab:SetPoint(point, relatedTo, point2, 16, -1)
 			end
 		end
 	end

@@ -5,26 +5,28 @@ if C.skins.blizzard_frames ~= true then return end
 --	WorldMap skin
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
-	if IsAddOnLoaded("Mapster") then return end
+	if C_AddOns.IsAddOnLoaded("Mapster") then return end
 
 	WorldMapFrame:StripTextures()
 	WorldMapFrame:CreateBackdrop("Transparent")
 
 	WorldMapFrame.BorderFrame:SetFrameStrata(WorldMapFrame:GetFrameStrata())
 
-	T.SkinDropDownBox(WorldMapContinentDropDown)
-	T.SkinDropDownBox(WorldMapZoneDropDown)
+	T.SkinDropDownBox(WorldMapContinentDropdown)
+	T.SkinDropDownBox(WorldMapZoneDropdown)
 
-	if not T.Vanilla then
-		T.SkinDropDownBox(WorldMapZoneMinimapDropDown)
-	end
+	T.SkinDropDownBox(WorldMapZoneMinimapDropdown)
 
-	WorldMapZoneDropDown:SetPoint("LEFT", WorldMapContinentDropDown, "RIGHT", -24, 0)
-	WorldMapZoomOutButton:SetPoint("LEFT", WorldMapZoneDropDown, "RIGHT", -4, 3)
+	WorldMapZoneDropdown:SetPoint("LEFT", WorldMapContinentDropdown, "RIGHT", 5, 0)
+	WorldMapZoomOutButton:SetPoint("LEFT", WorldMapZoneDropdown, "RIGHT", 5, 0)
 
 	WorldMapZoomOutButton:SkinButton()
-
+	
+	WorldMapFrame.MaximizeMinimizeFrame.MinimizeButton:SkinButton()
+	-- WorldMapFrame.MaximizeMinimizeFrame.MaximizeButton:Kill()
+	
 	T.SkinCloseButton(WorldMapFrameCloseButton, WorldMapFrame.backdrop)
+	WorldMapFrameCloseButton:SetPoint("TOPRIGHT", WorldMapFrame.BorderFrame, "TOPRIGHT", 5, 4);
 
 	if Questie_Toggle then
 		Questie_Toggle:SkinButton()

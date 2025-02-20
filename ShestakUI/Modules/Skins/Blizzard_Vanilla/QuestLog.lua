@@ -1,5 +1,5 @@
 local T, C, L = unpack(ShestakUI)
-if C.skins.blizzard_frames ~= true or IsAddOnLoaded("QuestLogEx") then return end -- incomplete
+if C.skins.blizzard_frames ~= true or C_AddOns.IsAddOnLoaded("QuestLogEx") then return end -- incomplete
 
 ----------------------------------------------------------------------------------------
 --	QuestLog skin

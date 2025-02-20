@@ -1,5 +1,9 @@
 local T, C, L = unpack(ShestakUI)
 
+
+
+
+
 ----------------------------------------------------------------------------------------
 --	Reskin Blizzard windows(by Tukz and Co)
 ----------------------------------------------------------------------------------------
@@ -214,35 +218,67 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			MyFrameDropDownBackdrop:SetTemplate("Transparent")
 		end
 
-		-- Reskin menu
-		local ChatMenus = {
-			"ChatMenu",
-			"EmoteMenu",
-			"LanguageMenu",
-			"VoiceMacroMenu"
-		}
+		--	Blizzard_Menu skin
+		do
+			local backdrops = {}
+			local function SkinFrame(frame)
+				frame:StripTextures()
 
-		for i = 1, getn(ChatMenus) do
-			if _G[ChatMenus[i]] == _G["ChatMenu"] then
-				_G[ChatMenus[i]]:HookScript("OnShow", function(self)
-					if self.NineSlice then
-						self.NineSlice:SetTemplate("Transparent")
-					else
-						self:SetTemplate("Transparent")
+				if backdrops[frame] then
+					frame.backdrop = backdrops[frame] -- relink it back
+				else
+					frame:CreateBackdrop("Transparent") -- :SetTemplate errors out
+					frame.backdrop:SetInside(frame, 0, 0)
+					backdrops[frame] = frame.backdrop
+
+					if frame.ScrollBar then
+						T.SkinScrollBar(frame.ScrollBar)
 					end
-					self:ClearAllPoints()
-					self:SetPoint("BOTTOMRIGHT", ChatFrame1, "BOTTOMRIGHT", 0, 30)
-				end)
-			else
-				_G[ChatMenus[i]]:HookScript("OnShow", function(self)
-					if self.NineSlice then
-						self.NineSlice:SetTemplate("Transparent")
-					else
-						self:SetTemplate("Transparent")
-					end
-				end)
+				end
 			end
+
+			local function OpenMenu(manager, _, menuDescription)
+				local menu = manager:GetOpenMenu()
+				if menu then
+					SkinFrame(menu)
+					menuDescription:AddMenuAcquiredCallback(SkinFrame)
+				end
+			end
+
+			local manager = _G.Menu.GetManager()
+			hooksecurefunc(manager, "OpenMenu", OpenMenu)
+			hooksecurefunc(manager, "OpenContextMenu", OpenMenu)
 		end
+
+		-- Reskin menu
+		-- local ChatMenus = {
+			-- "ChatMenu",
+			-- "EmoteMenu",
+			-- "LanguageMenu",
+			-- "VoiceMacroMenu"
+		-- }
+
+		-- for i = 1, getn(ChatMenus) do
+			-- if _G[ChatMenus[i]] == _G["ChatMenu"] then
+				-- _G[ChatMenus[i]]:HookScript("OnShow", function(self)
+					-- if self.NineSlice then
+						-- self.NineSlice:SetTemplate("Transparent")
+					-- else
+						-- self:SetTemplate("Transparent")
+					-- end
+					-- self:ClearAllPoints()
+					-- self:SetPoint("BOTTOMRIGHT", ChatFrame1, "BOTTOMRIGHT", 0, 30)
+				-- end)
+			-- else
+				-- _G[ChatMenus[i]]:HookScript("OnShow", function(self)
+					-- if self.NineSlice then
+						-- self.NineSlice:SetTemplate("Transparent")
+					-- else
+						-- self:SetTemplate("Transparent")
+					-- end
+				-- end)
+			-- end
+		-- end
 
 		-- Hide header textures and move text/buttons
 		local BlizzardHeader = {
@@ -416,16 +452,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 					_G["DeclensionFrameDeclension"..i.."Edit"]:SetTextInsets(3, 0, 0, 0)
 				end
 			end
-			if C.skins.clique ~= true and IsAddOnLoaded("Clique") then
-				CliqueSpellTab:GetRegions():SetSize(0.1, 0.1)
-				CliqueSpellTab:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-				CliqueSpellTab:GetNormalTexture():ClearAllPoints()
-				CliqueSpellTab:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
-				CliqueSpellTab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-				CliqueSpellTab:CreateBackdrop("Default")
-				CliqueSpellTab.backdrop:SetAllPoints()
-				CliqueSpellTab:StyleButton()
-			end
+
 
 			local function SkinIconArray(baseName, numIcons)
 				for i = 1, numIcons do
