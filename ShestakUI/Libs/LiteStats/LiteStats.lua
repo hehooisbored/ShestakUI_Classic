@@ -410,7 +410,7 @@ if fps.enabled then
 		for i = 1, GetNumAddOns() do
 			local memory = GetAddOnMemoryUsage(i)
 			local addon, name = GetAddOnInfo(i)
-			if IsAddOnLoaded(i) then tinsert(memoryt, {name or addon, memory}) end
+			if C_AddOns.IsAddOnLoaded(i) then tinsert(memoryt, {name or addon, memory}) end
 			totalMemory = totalMemory + memory
 		end
 		table.sort(memoryt, sortdesc)
@@ -437,7 +437,7 @@ if fps.enabled then
 			local cpur = cpu - (lastCPU[i] and lastCPU[i] or cpu)
 			lastCPU[i] = cpu
 
-			if IsAddOnLoaded(i) then tinsert(cput, {name or addon, cpu, cpus, cpur}) end
+			if C_AddOns.IsAddOnLoaded(i) then tinsert(cput, {name or addon, cpu, cpus, cpur}) end
 			totalCPU = totalCPU + cpu
 		end
 		table.sort(cput, sortdesc)
@@ -882,8 +882,8 @@ if guild.enabled then
 		text = {
 			string = function()
 				if IsInGuild() then
-					local total, _, online = GetNumGuildMembers()
-					return format(guild.fmt, online, total)
+					local total, numOnline, allOnline = GetNumGuildMembers()
+					return format(guild.fmt, allOnline or numOnline, total)
 				else return T.Classic and L_STATS_NO_GUILD or LOOKINGFORGUILD end
 			end, update = 5
 		},
@@ -983,8 +983,9 @@ if guild.enabled then
 				self.hovered = true
 				C_GuildInfo.GuildRoster()
 				local name, rank, level, zone, note, officernote, connected, status, class, isMobile, zone_r, zone_g, zone_b, classc, levelc, grouped
-				local total, _, online = GetNumGuildMembers()
+				local total, numOnline, online = GetNumGuildMembers()
 				local gmotd = GetGuildRosterMOTD()
+				if not online then online = numOnline > 0 and numOnline or 0 end
 
 				GameTooltip:SetOwner(self, "ANCHOR_NONE")
 				GameTooltip:ClearAllPoints()
@@ -1718,14 +1719,14 @@ if damage.enabled then
 	Inject("Damage", {
 		text = {
 			string = function()
-				if IsAddOnLoaded("Details") then
+				if C_AddOns.IsAddOnLoaded("Details") then
 					_detalhes.data_broker_text = "{dps}"
 					_detalhes:BrokerTick()
 					local effectiveDPS = _detalhes.databroker.text
 					if effectiveDPS and effectiveDPS ~= "0" then
 						return format(damage.alt_fmt, DAMAGE, effectiveDPS)
 					end
-				elseif IsAddOnLoaded("Numeration") then
+				elseif C_AddOns.IsAddOnLoaded("Numeration") then
 					local text = LibStub:GetLibrary("LibDataBroker-1.1"):GetDataObjectByName("Numeration").text
 					if text and text ~= "Numeration" then
 						return format(damage.alt_fmt, DAMAGE, text)
@@ -1734,9 +1735,9 @@ if damage.enabled then
 			end
 		},
 		OnClick = function(self, button)
-			if IsAddOnLoaded("Details") then
+			if C_AddOns.IsAddOnLoaded("Details") then
 				_detalhes:ToggleWindows()
-			elseif IsAddOnLoaded("Numeration") then
+			elseif C_AddOns.IsAddOnLoaded("Numeration") then
 				Numeration:ToggleVisibility()
 			end
 		end

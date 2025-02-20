@@ -114,7 +114,7 @@ Stuffing = CreateFrame("Frame", nil, UIParent)
 Stuffing:RegisterEvent("ADDON_LOADED")
 Stuffing:RegisterEvent("PLAYER_ENTERING_WORLD")
 Stuffing:SetScript("OnEvent", function(this, event, ...)
-	if IsAddOnLoaded("AdiBags") or IsAddOnLoaded("ArkInventory") or IsAddOnLoaded("cargBags_Nivaya") or IsAddOnLoaded("cargBags") or IsAddOnLoaded("Bagnon") or IsAddOnLoaded("Combuctor") or IsAddOnLoaded("TBag") or IsAddOnLoaded("BaudBag") or IsAddOnLoaded("Baganator") then return end
+	if C_AddOns.IsAddOnLoaded("AdiBags") or C_AddOns.IsAddOnLoaded("ArkInventory") or C_AddOns.IsAddOnLoaded("cargBags_Nivaya") or C_AddOns.IsAddOnLoaded("cargBags") or C_AddOns.IsAddOnLoaded("Bagnon") or C_AddOns.IsAddOnLoaded("Combuctor") or C_AddOns.IsAddOnLoaded("TBag") or C_AddOns.IsAddOnLoaded("BaudBag") or C_AddOns.IsAddOnLoaded("Baganator") then return end
 	Stuffing[event](this, ...)
 end)
 
@@ -260,7 +260,7 @@ function Stuffing:SlotUpdate(b)
 		b.frame.UpgradeIcon:SetShown(itemIsUpgrade or false)
 	end
 
-	if IsAddOnLoaded("CanIMogIt") then
+	if C_AddOns.IsAddOnLoaded("CanIMogIt") then
 		CIMI_AddToFrame(b.frame, ContainerFrameItemButton_CIMIUpdateIcon)
 		ContainerFrameItemButton_CIMIUpdateIcon(b.frame.CanIMogItOverlay)
 	end

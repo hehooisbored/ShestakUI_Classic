@@ -10,7 +10,7 @@ local T, C, L = unpack(ShestakUI)
 local SkinBlizzUI = CreateFrame("Frame")
 SkinBlizzUI:RegisterEvent("ADDON_LOADED")
 SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
-	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") then return end
+	if C_AddOns.IsAddOnLoaded("Skinner") or C_AddOns.IsAddOnLoaded("Aurora") then return end
 
 	-- Stuff not in Blizzard load-on-demand
 	if addon == "ShestakUI" then
@@ -452,7 +452,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 					_G["DeclensionFrameDeclension"..i.."Edit"]:SetTextInsets(3, 0, 0, 0)
 				end
 			end
-
 
 			local function SkinIconArray(baseName, numIcons)
 				for i = 1, numIcons do
