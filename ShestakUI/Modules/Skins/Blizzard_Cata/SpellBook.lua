@@ -143,7 +143,9 @@ local function LoadSkin()
 
 	T.SkinCloseButton(SpellBookFrameCloseButton, SpellBookFrame.backdrop)
 
-	-- Profession Tab
+----------------------------------------------------------------------------------------
+--	Professions Tab skin
+----------------------------------------------------------------------------------------
 	local professionbuttons = {
 		"PrimaryProfession1SpellButtonTop",
 		"PrimaryProfession1SpellButtonBottom",
@@ -154,7 +156,9 @@ local function LoadSkin()
 		"SecondaryProfession2SpellButtonLeft",
 		"SecondaryProfession2SpellButtonRight",
 		"SecondaryProfession3SpellButtonLeft",
-		"SecondaryProfession3SpellButtonRight"
+		"SecondaryProfession3SpellButtonRight",
+		"SecondaryProfession4SpellButtonLeft",
+		"SecondaryProfession4SpellButtonRight"
 	}
 
 	local professionheaders = {
@@ -218,7 +222,8 @@ local function LoadSkin()
 		"PrimaryProfession2StatusBar",
 		"SecondaryProfession1StatusBar",
 		"SecondaryProfession2StatusBar",
-		"SecondaryProfession3StatusBar"
+		"SecondaryProfession3StatusBar",
+		"SecondaryProfession4StatusBar"
 	}
 
 	for _, statusbar in pairs(professionstatusbars) do
@@ -231,16 +236,7 @@ local function LoadSkin()
 		statusbar.rankText:ClearAllPoints()
 		statusbar.rankText:SetPoint("CENTER")
 	end
-	if C.skins.clique == true and C_AddOns.IsAddOnLoaded("Clique") then
-		CliqueSpellbookTabButton:GetRegions():SetSize(0.1, 0.1)
-		CliqueSpellbookTabButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		CliqueSpellbookTabButton:GetNormalTexture():ClearAllPoints()
-		CliqueSpellbookTabButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
-		CliqueSpellbookTabButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-		CliqueSpellbookTabButton:CreateBackdrop("Default")
-		CliqueSpellbookTabButton.backdrop:SetAllPoints()
-		
-	end
+
 	-- Bottom Tabs
 	for i = 1, 5 do
 		T.SkinTab(_G["SpellBookFrameTabButton"..i])
@@ -249,6 +245,17 @@ local function LoadSkin()
 	_G["SpellBookFrameTabButton1"]:SetPoint("TOPLEFT", _G["SpellBookFrame"], "BOTTOMLEFT", 5, 1)
 end
 
-
+C_Timer.After(0.1, function()
+	if CliqueSpellbookTabButton then
+		CliqueSpellbookTabButton:GetRegions():SetSize(0.1, 0.1)
+		CliqueSpellbookTabButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		CliqueSpellbookTabButton:GetNormalTexture():ClearAllPoints()
+		CliqueSpellbookTabButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
+		CliqueSpellbookTabButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
+		CliqueSpellbookTabButton:CreateBackdrop("Default")
+		CliqueSpellbookTabButton.backdrop:SetAllPoints()
+		CliqueSpellbookTabButton:StyleButton(true)
+	end
+end)
 
 tinsert(T.SkinFuncs["ShestakUI"], LoadSkin)
