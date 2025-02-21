@@ -268,7 +268,6 @@ local function createSlider(parent, option, lowText, highText, low, high, step, 
 	local f = CreateFrame("Slider", sliderName, parent, "OptionsSliderTemplate")
 
 	if IsClassicBuild() then
-		BlizzardOptionsPanel_Slider_Enable(f)
 		-- BlizzardOptionsPanel_Slider_Enable(f)
 	end
 
