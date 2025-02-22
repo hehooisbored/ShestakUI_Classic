@@ -44,7 +44,6 @@ local function LoadSkin()
 
 	SpellBookFramePortrait:SetAlpha(0)
 
-	-- Skin SpellButtons
 	local function SpellButtons()
 		if _G.SpellBookFrame.bookType == BOOKTYPE_PROFESSION then return end
 
@@ -69,7 +68,8 @@ local function LoadSkin()
 		local highlight = _G["SpellButton"..i.."Highlight"]
 
 		_G["SpellButton"..i.."SlotFrame"]:SetAlpha(0)
-
+		
+		button:SkinButton()
 		button.EmptySlot:SetAlpha(0)
 		button.TextBackground:Hide()
 		button.TextBackground2:Hide()
@@ -77,26 +77,8 @@ local function LoadSkin()
 		button:SetCheckedTexture(0)
 		button:SetPushedTexture(0)
 
-		if highlight then
-			highlight:ClearAllPoints()
-			highlight:SetAllPoints(icon)
-
-			hooksecurefunc(highlight, "SetTexture", function(button, texture)
-				if texture == [[Interface\Buttons\ButtonHilight-Square]] then
-					button:SetColorTexture(1, 1, 1, 0.3)
-				end
-			end)
-		end
-
 		if icon then
-			icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			icon:ClearAllPoints()
-			icon:SetAllPoints()
-
-			if not button.backdrop then
-				button:SetFrameLevel(button:GetFrameLevel() + 1)
-				button:CreateBackdrop("Default")
-			end
+			icon:SkinIcon()
 		end
 
 		hooksecurefunc(button, "UpdateButton", SpellButtons)
@@ -166,7 +148,8 @@ local function LoadSkin()
 		"PrimaryProfession2",
 		"SecondaryProfession1",
 		"SecondaryProfession2",
-		"SecondaryProfession3"
+		"SecondaryProfession3",
+		"SecondaryProfession4"
 	}
 
 	for _, header in pairs(professionheaders) do
