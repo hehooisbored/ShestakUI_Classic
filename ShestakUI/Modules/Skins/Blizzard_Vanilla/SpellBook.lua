@@ -17,7 +17,7 @@ local function LoadSkin()
 
 	T.SkinCloseButton(SpellBookCloseButton, SpellBookFrame.backdrop)
 
-	if T.Wrath or T.Cata then
+	if T.Wrath then
 		T.SkinCheckBox(ShowAllSpellRanksCheckBox)
 		ShowAllSpellRanksCheckBox:SetPoint("TOPLEFT", _G.SpellButton1, "TOPLEFT", -7, 32)
 	end
@@ -90,13 +90,12 @@ local function LoadSkin()
 			tab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
 			tab:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
-			tab:CreateBackdrop("Default")
-			tab.backdrop:SetAllPoints()
+			tab:SetTemplate("Default")
 			tab:StyleButton(true)
 
 			if tab == SpellBookSkillLineTab1 then
-				local point, relatedTo, point2 = tab:GetPoint()
-				tab:SetPoint(point, relatedTo, point2, 16, -1)
+				tab:ClearAllPoints()
+				tab:SetPoint("TOPRIGHT", SpellBookFrameBackdrop, 33, 0)
 			end
 		end
 	end
@@ -131,6 +130,18 @@ local function LoadSkin()
 		tab:SetSize(tab:GetWidth() * 0.75, 32)
 		T.SkinTab(tab)
 	end
+	C_Timer.After(0.1, function()
+		if CliqueSpellbookTabButton then
+			CliqueSpellbookTabButton:GetRegions():SetSize(0.1, 0.1)
+			CliqueSpellbookTabButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			CliqueSpellbookTabButton:GetNormalTexture():ClearAllPoints()
+			CliqueSpellbookTabButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
+			CliqueSpellbookTabButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
+			CliqueSpellbookTabButton:CreateBackdrop("Default")
+			CliqueSpellbookTabButton.backdrop:SetAllPoints()
+			CliqueSpellbookTabButton:StyleButton(true)
+		end
+	end)
 end
 
 tinsert(T.SkinFuncs["ShestakUI"], LoadSkin)
