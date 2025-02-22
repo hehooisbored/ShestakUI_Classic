@@ -54,7 +54,7 @@
 
 <!-- TODO - Moving files as needed into Blizzard_Cata -->
 	<Script file="..\Blizzard_Cata\SpellBook.lua"/>
-<!--	<Script file="..\Blizzard_Cata\Talent.lua"/> Disabled until talent UI is fixed -->
+    <Script file="..\Blizzard_Cata\Talent.lua"/> 
 	<Script file="..\Blizzard_Cata\WorldMap.lua"/>
 	<Script file="..\Blizzard_Cata\Glyph.lua"/> 
 <!--	<Script file="..\Blizzard_Cata\Auction.lua"/> 		Disabling due to changes in 4.4.2 AH updates --> 
