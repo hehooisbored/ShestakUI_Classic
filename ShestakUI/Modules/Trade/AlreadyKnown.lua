@@ -260,7 +260,7 @@ end
 
 -- Auction frame
 local _hookNewAH
-if T.Classic then
+if T.Vanilla then
 	_hookNewAH = function(self)
 		local numResults = self.getNumEntries()
 		local buttons = HybridScrollFrame_GetButtons(self.ScrollFrame)
@@ -429,7 +429,9 @@ if not (isBlizzard_GuildUILoaded and isBlizzard_GuildBankUILoaded and isBlizzard
 		elseif addon == "Blizzard_AuctionHouseUI" then
 			isBlizzard_AuctionHouseUILoaded = true
 			hooksecurefunc(AuctionHouseFrame.BrowseResultsFrame.ItemList, "RefreshScrollFrame", _hookNewAH)
-			hooksecurefunc(AuctionHouseFrame.BrowseResultsFrame.ItemList, "OnScrollBoxRangeChanged", _hookNewAH)
+			if not T.Cata then
+				hooksecurefunc(AuctionHouseFrame.BrowseResultsFrame.ItemList, "OnScrollBoxRangeChanged", _hookNewAH)
+			end
 		elseif addon == "Blizzard_AuctionUI" then
 			isBlizzard_AuctionUILoaded = true
 			hooksecurefunc("AuctionFrameBrowse_Update", AuctionFrameBrowse_Update)
