@@ -277,7 +277,7 @@ local function LoadSkin()
 					if playerReagentCount < reagentCount then
 						name:SetTextColor(0.5, 0.5, 0.5)
 					else
-							name:SetTextColor(GetItemQualityColor(quality))
+							name:SetTextColor(R, G, B)
 					end
 					count:ClearAllPoints()
 					count:SetPoint("BOTTOMLEFT", icon, "BOTTOMLEFT", 0, -1)
