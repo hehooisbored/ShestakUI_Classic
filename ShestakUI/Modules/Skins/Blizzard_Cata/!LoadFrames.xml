@@ -30,8 +30,6 @@
 	<Script file="..\Blizzard_Vanilla\Inspect.lua"/>			
 	<Script file="..\Blizzard_Vanilla\ItemText.lua"/>
 	<!-- <Script file="..\Blizzard_Vanilla\PetStable.lua"/> -->
-	<Script file="..\Blizzard_Vanilla\Quest.lua"/>
-	<Script file="..\Blizzard_Vanilla\QuestLog.lua"/>
 	<Script file="..\Blizzard_Vanilla\Tabard.lua"/>
 	<Script file="..\Blizzard_Vanilla\Taxi.lua"/>
 	<Script file="..\Blizzard_Vanilla\TradeSkill.lua"/>
@@ -51,8 +49,9 @@
 	<Script file="..\Blizzard\Calendar.lua"/>
 	<Script file="..\Blizzard\Character.lua"/>
 	<Script file="..\Blizzard\Gossip.lua"/>
-
+	<Script file="..\Blizzard_Cata\Quest.lua"/>
 <!-- TODO - Moving files as needed into Blizzard_Cata -->
+	<Script file="..\Blizzard_Cata\QuestLog.lua"/>
 	<Script file="..\Blizzard_Cata\SpellBook.lua"/>
     <Script file="..\Blizzard_Cata\Talent.lua"/> 
 	<Script file="..\Blizzard_Cata\WorldMap.lua"/>
